@@ -8,17 +8,34 @@
 import SwiftUI
 
 struct ContentView: View {
+    @Environment(ModelData.self) var modelData
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        TabView {
+            HomeView()
+                .tabItem {
+                    Image(systemName: "house.fill")
+                    Text("Home")
+                }
+            
+            MessageView(user: modelData.users[0])
+                .tabItem {
+                    Image(systemName: "message.fill")
+                    Text("Messages")
+                }
+            
+            ProfileView(user: modelData.users[0])
+                .tabItem {
+                    Image(systemName: "person.fill")
+                    Text("Profile")
+                }
         }
-        .padding()
     }
 }
 
+
+
+
 #Preview {
-    ContentView()
+    ContentView().environment(ModelData())
 }
